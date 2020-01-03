@@ -58,4 +58,24 @@ describe('File', () => {
       await fs.remove(path.resolve(process.cwd(), 'test-file.makeBackup.txt'))
     })
   })
+
+  describe('rollback', () => {
+    beforeEach(async () => {
+      //await fs.createFile(path.resolve(process.cwd(), 'test-file.rollback.txt.pgp-backup'))
+      await fs.outputFile(path.resolve(process.cwd(), 'test-file.rollback.txt'), 'origin', {encoding: 'utf8'})
+      await fs.outputFile(path.resolve(process.cwd(), 'test-file.rollback.txt.pgp-backup'), 'backup', {encoding: 'utf8'})
+    })
+
+    it('should make rollback and remove backup file', async () => {
+      await File.rollback('test-file.rollback.txt');
+
+      expect(await fs.readFile(path.resolve(process.cwd(), 'test-file.rollback.txt'), 'utf8')).to.be.equal('backup');
+      expect(await fs.pathExists(path.resolve(process.cwd(), 'test-file.rollback.txt.pgp-backup'))).to.be.false;
+    })
+
+    afterEach(async () => {
+      await fs.remove(path.resolve(process.cwd(), 'test-file.rollback.txt.pgp-backup'))
+      await fs.remove(path.resolve(process.cwd(), 'test-file.rollback.txt'))
+    })
+  })
 })

@@ -21,10 +21,12 @@ export default class Change extends Command {
   async run() {
     const {args, flags} = this.parse(Change)
 
-    const name = flags.name || 'world'
+    /* const name = flags.name || 'world'
     this.log(`hello ${name} from C:\\www\\private-git-packages\\src\\commands\\change.ts`)
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }
+
+     */
   }
 }

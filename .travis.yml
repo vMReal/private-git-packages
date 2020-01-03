@@ -5,9 +5,8 @@ node_js:
 cache: npm
 
 script:
-  - ./bin/run --version
-  - ./bin/run --help
-  - npm run test
+  - npm run test-integration
+  - npm run test-unit
 
 
 after_success:
