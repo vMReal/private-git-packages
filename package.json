@@ -8,6 +8,7 @@
   },
   "bugs": "https://github.com/vMReal/private-git-packages/issues",
   "dependencies": {
+    "@mreal/digest-auth": "git+https://github.com/vMReal/digest-auth.git",
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.3",
