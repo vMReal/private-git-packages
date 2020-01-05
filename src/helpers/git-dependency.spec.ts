@@ -118,7 +118,7 @@ describe('GitDependency', () => {
 
       const res = JSON.parse(GitDependency.change(json, ['test1', 'test2'], 'testuser', 'testpassword'));
       expect(get(res, 'dependencies.test1')).to.equal('v1.1.1');
-      expect(get(res, 'dependencies.test3')).to.equal('git+https://testuser:testpassword@test3.test');
+      expect(get(res, 'dependencies.test2')).to.equal('git+https://testuser:testpassword@test2.test');
     })
 
     it('should change correctly package-lock.json structure', async () => {
