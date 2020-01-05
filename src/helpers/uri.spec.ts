@@ -36,4 +36,24 @@ describe('Uri', () => {
       expect(Uri.change('git+ssh://testu:testp@test.com#master', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com#master');
     })
   })
+
+  describe('isGitUri', () => {
+    it('should detect any supported git uri by protocol',  () => {
+      Object
+        .values(PROTOCOL)
+        .forEach(protocol => {
+          expect(Uri.isGitUri(`${protocol}://test.com#master`)).to.be.true
+        });
+    })
+
+    it('should return false with  unsupported uri',  () => {
+      expect(Uri.isGitUri(`http://test.com#master`)).to.be.false
+    })
+
+
+    it('should return false wit any unsupported  string value',  () => {
+      expect(Uri.isGitUri(`test.com#master`)).to.be.false;
+      expect(Uri.isGitUri(`.`)).to.be.false;
+    })
+  })
 })
