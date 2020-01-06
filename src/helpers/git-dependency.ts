@@ -34,7 +34,7 @@ export class GitDependency {
   public static change(json: string, names: string[], username: string, password: string): string {
     return JSON.stringify(chain(names)
       .reduce((parsedJson: Package | PackageLock, name) => {
-        const paths: Paths = (chain(parsedJson).get(['dependencies', name]).isObject())
+        const paths: Paths = (chain(parsedJson).get(['dependencies', name]).isObject().value())
           ? [['dependencies', name, 'version'], ['dependencies', name, 'from']]
           : [['dependencies', name], ['devDependencies', name]];
 

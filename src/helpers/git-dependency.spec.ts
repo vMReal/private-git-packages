@@ -4,20 +4,6 @@ import {PROTOCOL, Uri} from "./uri";
 import {GitDependency, Package, PackageLock} from "./git-dependency";
 import {get} from 'lodash';
 
-
-const PACKAGE_TEMPLATE = JSON.stringify(<Package>{
-  dependencies: {
-    test1: 'v1.1.1',
-    test2: 'git://test2.test',
-    test3: 'git://test3.test',
-    test4: 'v1.1.1'
-  },
-  devDependencies: {
-    test5: 'git://test3.test',
-    test4: 'v1.1.1'
-  }
-})
-
 describe('GitDependency', () => {
   describe('find', () => {
     it('should find correctly the package.json structure with dependencies and devDependencies', async () => {
@@ -99,7 +85,7 @@ describe('GitDependency', () => {
       const res = JSON.parse(GitDependency.change(json, ['test2', 'test3'], 'testuser', 'testpassword'));
       expect(get(res, 'dependencies.test2')).to.equal('git+https://testuser:testpassword@test2.test');
       expect(get(res, 'dependencies.test3')).to.equal('git+https://testuser:testpassword@test3.test');
-      expect(get(res, 'dependencies.test5')).to.equal('git+file://test3.test');
+      expect(get(res, 'devDependencies.test5')).to.equal('git+file://test3.test');
     })
 
     it('should not affect other not git uri', async () => {
