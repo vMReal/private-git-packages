@@ -78,4 +78,33 @@ describe('File', () => {
       await fs.remove(path.resolve(process.cwd(), 'test-file.rollback.txt'))
     })
   })
+
+  describe('load', () => {
+    beforeEach(async () => {
+      await fs.outputFile(path.resolve(process.cwd(), 'test-file.load.txt'), 'origin', {encoding: 'utf8'});
+    })
+
+    it('should load file', async () => {
+      expect(await File.load('test-file.load.txt')).to.be.equal('origin');
+    })
+
+    afterEach(async () => {
+      await fs.remove(path.resolve(process.cwd(), 'test-file.load.txt'));
+    })
+  })
+
+  describe('modify', () => {
+    beforeEach(async () => {
+      await fs.outputFile(path.resolve(process.cwd(), 'test-file.modify.txt'), 'origin', {encoding: 'utf8'});
+    })
+
+    it('should modify file correctly', async () => {
+      await File.modify('test-file.modify.txt', 'changed');
+      expect(await fs.readFile(path.resolve(process.cwd(), 'test-file.modify.txt'), 'utf8')).to.be.equal('changed');
+    })
+
+    afterEach(async () => {
+      await fs.remove(path.resolve(process.cwd(), 'test-file.modify.txt'));
+    })
+  })
 })

@@ -2,6 +2,8 @@ import {Command, flags} from '@oclif/command';
 import {File} from '../helpers/file';
 import {cli} from 'cli-ux';
 import {has, reduce, get} from 'lodash'
+import {Tree} from "cli-ux/lib/styled/tree";
+import {GitDependency} from "../helpers/git-dependency";
 
 export default class Change extends Command {
   static description = 'describe the command here'
@@ -27,37 +29,38 @@ export default class Change extends Command {
     const files = [
       ...await File.find(`${flags.filename}.json`, flags.recursively),
       ...await File.find(`${flags.filename}-lock.json`, flags.recursively),
-    ].sort()
+    ].sort();
 
+    files.forEach(uri => File.makeBackup(uri));
+
+    Promise.all(files
+      .map((uri) => ({uri, content: File.load(uri)}))
+      .map(async (item) => ({...item, packages: await GitDependency.find(await item.content)}))
+    );
+
+    Promise.all(files.map(async (uri) => ({uri, content: await File.load(uri)})))
+      .then(file => file.map(async (item) => ({...item, packages: await GitDependency.find(item.content)})))
+    
+
+
+    Change.generateInfoTable(files).display();
+
+  }
+
+  public static generateInfoTable(files: string[]): Tree {
     const tree = cli.tree();
     files.forEach((uri) => {
       const parts = uri.split('/')
-      console.log('parts', parts)
       parts.forEach((value, index) => {
-        if (index === parts.length - 1)
-          return tree.insert(value);
-
-        const path = reduce(parts.slice(0, index), (res: string[], item: string) => [...res, 'nodes', item], [])
-        console.log(value, index, path, !has(tree, path) && index === 0)
+        const path = reduce(parts.slice(0, index + 1), (res: string[], item: string) => [...res, 'nodes', item], []);
         if (!has(tree, path) && index === 0)
           return tree.insert(value, cli.tree());
 
-        if (!has(tree, path)) {
-          console.log('ddd', get(tree, path.slice(0, -2)));
-          (get(tree, path.slice(0, -2)) as  any).insert(value, cli.tree())
-        }
+        if (!has(tree, path))
+          return (get(tree, path.slice(0, -2)) as  any).insert(value, cli.tree())
       });
     })
-
-    tree.display();
-
-    /* const name = flags.name || 'world'
-    this.log(`hello ${name} from C:\\www\\private-git-packages\\src\\commands\\change.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
-
-     */
+    return tree;
   }
 }
 

@@ -28,6 +28,14 @@ export class File {
     await fs.move(this.getFullPath(this.getBackupPath(filepath)), this.getFullPath(filepath), {overwrite: true});
   }
 
+  public static load(filepath: string): Promise<string> {
+    return fs.readFile(this.getFullPath(filepath), 'utf8');
+  }
+
+  public static modify(filepath: string, content: string): Promise<void> {
+    return fs.outputFile(this.getFullPath(filepath), content);
+  }
+
   protected static getFullPath(filepath: string): string {
     return  path.resolve(process.cwd(), filepath);
   }
