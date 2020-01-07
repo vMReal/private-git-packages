@@ -13,14 +13,15 @@ todo
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g private-git-packages
+$ npm install -g @vmreal/private-git-packages
 $ pgp COMMAND
 running command...
 $ pgp (-v|--version|version)
-private-git-packages/0.0.1 win32-x64 node-v13.1.0
+@vmreal/private-git-packages/0.0.1 win32-x64 node-v13.1.0
 $ pgp --help [COMMAND]
 USAGE
   $ pgp COMMAND
@@ -29,8 +30,31 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`pgp change [PATTERN]`](#pgp-change-pattern)
 * [`pgp hello [FILE]`](#pgp-hello-file)
 * [`pgp help [COMMAND]`](#pgp-help-command)
+* [`pgp rollback [FILE]`](#pgp-rollback-file)
+
+## `pgp change [PATTERN]`
+
+describe the command here
+
+```
+USAGE
+  $ pgp change [PATTERN]
+
+ARGUMENTS
+  PATTERN  Pattern for restricting selection. Any text or regular expression.
+
+OPTIONS
+  -h, --help               show CLI help
+  -n, --filename=filename  [default: package] custom name of package.json
+  -p, --password=password  (required) password -> https://[username]:[password]@your-git-host.com/...
+  -r, --recursively        Apply to all files (package) at any level of nesting
+  -u, --username=username  (required) username -> https://[username]:[password]@your-git-host.com/...
+```
+
+_See code: [src\commands\change.ts](https://github.com/vMReal/private-git-packages/blob/v0.0.1/src\commands\change.ts)_
 
 ## `pgp hello [FILE]`
 
@@ -68,4 +92,20 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src\commands\help.ts)_
+
+## `pgp rollback [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ pgp rollback [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src\commands\rollback.ts](https://github.com/vMReal/private-git-packages/blob/v0.0.1/src\commands\rollback.ts)_
 <!-- commandsstop -->

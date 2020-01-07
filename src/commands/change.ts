@@ -5,6 +5,14 @@ import {has, reduce, get} from 'lodash'
 import {Tree} from "cli-ux/lib/styled/tree";
 import {GitDependency} from "../helpers/git-dependency";
 
+import Aigle from "aigle";
+
+interface ProcessedItem {
+  filepath: string, dependencies: string[],
+}
+
+type ProcessedItems = ProcessedItem[];
+
 export default class Change extends Command {
   static description = 'describe the command here'
 
@@ -26,38 +34,41 @@ export default class Change extends Command {
   async run() {
     const {args, flags} = this.parse<Flags, Args>(Change);
 
-    const files = [
-      ...await File.find(`${flags.filename}.json`, flags.recursively),
-      ...await File.find(`${flags.filename}-lock.json`, flags.recursively),
-    ].sort();
+    const items = await Aigle
+      .resolve([
+        ...await File.find(`${flags.filename}.json`, flags.recursively),
+        ...await File.find(`${flags.filename}-lock.json`, flags.recursively),
+      ].sort())
+      .reduce<string, ProcessedItems>(async (res, filepath) => {
+        const content = await File.load(filepath);
+        const dependencies = await GitDependency.find(content);
+        if (!dependencies.length)
+          return [...res];
 
-    files.forEach(uri => File.makeBackup(uri));
+        await File.makeBackup(filepath);
+        const changedContent = await GitDependency.change(content, dependencies, flags.username, flags.password);
+        await File.modify(filepath, changedContent);
+        return [...res, {filepath, dependencies}];
+      }, []);
 
-    Promise.all(files
-      .map((uri) => ({uri, content: File.load(uri)}))
-      .map(async (item) => ({...item, packages: await GitDependency.find(await item.content)}))
-    );
-
-    Promise.all(files.map(async (uri) => ({uri, content: await File.load(uri)})))
-      .then(file => file.map(async (item) => ({...item, packages: await GitDependency.find(item.content)})))
-    
-
-
-    Change.generateInfoTable(files).display();
+    this.log(`$ such files and dependencies was changed successful`);
+    Change.generateInfoTable(items).display();
 
   }
 
-  public static generateInfoTable(files: string[]): Tree {
+  public static generateInfoTable(items: ProcessedItems): Tree {
     const tree = cli.tree();
-    files.forEach((uri) => {
-      const parts = uri.split('/')
-      parts.forEach((value, index) => {
+    items.forEach((item) => {
+      item.filepath.split('/').forEach((value, index, parts) => {
+
         const path = reduce(parts.slice(0, index + 1), (res: string[], item: string) => [...res, 'nodes', item], []);
         if (!has(tree, path) && index === 0)
-          return tree.insert(value, cli.tree());
+          tree.insert(value, cli.tree());
+        else if (!has(tree, path))
+          get(tree, path.slice(0, -2)).insert(value, cli.tree());
 
-        if (!has(tree, path))
-          return (get(tree, path.slice(0, -2)) as  any).insert(value, cli.tree())
+        if (index === parts.length - 1)
+          item.dependencies.forEach(dependency => get(tree, path).insert(dependency));
       });
     })
     return tree;
