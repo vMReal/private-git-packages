@@ -1,7 +1,24 @@
 private-git-packages
 ====================
 
-todo
+CLI allows dynamically inject secret variables for git dependencies in package.json. It gives protected way use git dependencies in package.json in CI/CD
+
+
+```
+# ANY CI
+pgp change --username=BasicAuthUsername --password=BasicAuthPassword
+npm i
+pgp rollback
+
+```
+
+```
+# GITLAB CI
+pgp change --username=gitlab-ci-token --password=$CI_JOB_TOKEN
+npm i
+pgp rollback
+
+```
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/private-git-packages.svg)](https://npmjs.org/package/private-git-packages)
@@ -21,7 +38,7 @@ $ npm install -g @vmreal/private-git-packages
 $ pgp COMMAND
 running command...
 $ pgp (-v|--version|version)
-@vmreal/private-git-packages/0.0.1 win32-x64 node-v13.1.0
+@vmreal/private-git-packages/0.1.0 linux-x64 node-v8.10.0
 $ pgp --help [COMMAND]
 USAGE
   $ pgp COMMAND
@@ -31,9 +48,8 @@ USAGE
 # Commands
 <!-- commands -->
 * [`pgp change [PATTERN]`](#pgp-change-pattern)
-* [`pgp hello [FILE]`](#pgp-hello-file)
 * [`pgp help [COMMAND]`](#pgp-help-command)
-* [`pgp rollback [FILE]`](#pgp-rollback-file)
+* [`pgp rollback`](#pgp-rollback)
 
 ## `pgp change [PATTERN]`
 
@@ -54,27 +70,7 @@ OPTIONS
   -u, --username=username  (required) username -> https://[username]:[password]@your-git-host.com/...
 ```
 
-_See code: [src\commands\change.ts](https://github.com/vMReal/private-git-packages/blob/v0.0.1/src\commands\change.ts)_
-
-## `pgp hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ pgp hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ pgp hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src\commands\hello.ts](https://github.com/vMReal/private-git-packages/blob/v0.0.1/src\commands\hello.ts)_
+_See code: [src/commands/change.ts](https://github.com/vMReal/private-git-packages/blob/v0.1.0/src/commands/change.ts)_
 
 ## `pgp help [COMMAND]`
 
@@ -91,21 +87,21 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src\commands\help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `pgp rollback [FILE]`
+## `pgp rollback`
 
 describe the command here
 
 ```
 USAGE
-  $ pgp rollback [FILE]
+  $ pgp rollback
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help               show CLI help
+  -n, --filename=filename  [default: package] custom name of package.json
+  -r, --recursively        Apply to all files (package) at any level of nesting
 ```
 
-_See code: [src\commands\rollback.ts](https://github.com/vMReal/private-git-packages/blob/v0.0.1/src\commands\rollback.ts)_
+_See code: [src/commands/rollback.ts](https://github.com/vMReal/private-git-packages/blob/v0.1.0/src/commands/rollback.ts)_
 <!-- commandsstop -->

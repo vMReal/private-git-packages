@@ -1,7 +1,7 @@
 {
   "name": "@vmreal/private-git-packages",
-  "description": "todo",
-  "version": "0.0.1",
+  "description": "CLI allows dynamically inject secret variables for git dependencies in package.json. It gives protected way use git dependencies in package.json in CI/CD",
+  "version": "0.1.0",
   "author": "vMReal @vMReal",
   "bin": {
     "pgp": "./bin/run"
@@ -48,7 +48,19 @@
   ],
   "homepage": "https://github.com/vMReal/private-git-packages",
   "keywords": [
-    "oclif"
+    "cli",
+    "git",
+    "npm",
+    "dependencies",
+    "git dependencies",
+    "package",
+    "ci",
+    "cd",
+    "continuous integration",
+    "npm git auth",
+    "git dependencies auth",
+    "git package auth",
+    "auth"
   ],
   "license": "MIT",
   "main": "lib/index.js",
