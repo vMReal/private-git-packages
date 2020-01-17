@@ -8,20 +8,17 @@ describe('Uri', () => {
       expect(Uri.change('git://test.com', 'u', 'p', PROTOCOL.HTTP)).to.match(/^git\+http\:\/\//);
     })
 
-    it('should change protocol correctly when given a composite protocol', async () => {
-      expect(Uri.change('test+test://test.com', 'u', 'p', PROTOCOL.HTTP)).to.match(/^git\+http\:\/\//);
+    it('should not change protocol correctly when given a not correct protocol', async () => {
+      expect(Uri.change('test+test://test.com', 'u', 'p', PROTOCOL.HTTP)).to.match(/^test\+test\:\/\//);
     })
 
-    it('should change protocol correctly when given a not correct protocol', async () => {
+    it('should change protocol correctly when given a correct protocol', async () => {
       expect(Uri.change('git+http://test.com', 'u', 'p', PROTOCOL.HTTP)).to.match(/^git\+http\:\/\//);
     })
 
-    it('should inject credentials correctly to uri without basic auth', async () => {
-      expect(Uri.change('https://test.com', 'u', 'p', PROTOCOL.HTTP)).to.include('://u:p@');
-    })
 
     it('should inject credentials correctly to uri with exist basic auth', async () => {
-      expect(Uri.change('https://testu:testp@test.com', 'u', 'p', PROTOCOL.HTTP)).to.include('://u:p@');
+      expect(Uri.change('git+ssh://testu:testp@test.com', 'u', 'p', PROTOCOL.HTTP)).to.include('://u:p@');
     })
 
     it('should not affect another parts of uri without basic auth', async () => {
