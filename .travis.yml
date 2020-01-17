@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - node
+
+cache: npm
+
+script:
+  - npm run test-unit
+
+
+after_success:
+  - ./node_modules/.bin/nyc report --reporter text-lcov > coverage.lcov
+  - bash < (curl -s https://codecov.io/bash)

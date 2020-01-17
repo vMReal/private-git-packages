@@ -1,0 +1,84 @@
+{
+  "name": "@vmreal/private-git-packages",
+  "description": "CLI allows dynamically inject secret variables for git dependencies in package.json. It gives protected way use git dependencies in package.json in CI/CD",
+  "version": "0.1.0",
+  "author": "vMReal @vMReal",
+  "bin": {
+    "pgp": "./bin/run"
+  },
+  "bugs": "https://github.com/vMReal/private-git-packages/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.13.3",
+    "@oclif/plugin-help": "^2.2.3",
+    "@types/lodash": "^4.14.149",
+    "aigle": "^1.14.1",
+    "cli-ux": "^5.4.1",
+    "fs-extra": "^8.1.0",
+    "glob-promise": "^3.4.0",
+    "lodash": "^4.17.15",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "@oclif/test": "^1.2.5",
+    "@types/chai": "^4.2.7",
+    "@types/fs-extra": "^8.0.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.17.13",
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif-typescript": "^0.1.0",
+    "globby": "^10.0.1",
+    "mocha": "^5.2.0",
+    "nyc": "^14.1.1",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/vMReal/private-git-packages",
+  "keywords": [
+    "cli",
+    "git",
+    "npm",
+    "dependencies",
+    "git dependencies",
+    "package",
+    "ci",
+    "cd",
+    "continuous integration",
+    "npm git auth",
+    "git dependencies auth",
+    "git package auth",
+    "auth"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "pgp",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "vMReal/private-git-packages",
+  "scripts": {
+    "postpack": "rimraf oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test-integration": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
+    "test-unit": "nyc --extension .ts mocha --forbid-only \"**/*.spec.ts\"",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}
