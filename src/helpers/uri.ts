@@ -1,4 +1,5 @@
 import {URL} from 'url';
+import {parse} from "uri-js";
 
 export enum PROTOCOL {
   GIT= 'git',
@@ -21,8 +22,7 @@ export class Uri {
     try {
       return Object
         .values<string>(PROTOCOL)
-        .map(protocol => `${protocol}:`)
-        .includes(new URL(uri).protocol);
+        .includes(parse(uri).scheme || '');
     } catch (e) {
       return false
     }

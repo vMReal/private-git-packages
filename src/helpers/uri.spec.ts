@@ -43,6 +43,10 @@ describe('Uri', () => {
         });
     })
 
+    it('should correctly parse git uri format', () => {
+      expect(Uri.isGitUri('git+ssh://git@git.test.com:3535:scope/name?search#test')).to.be.true
+    })
+
     it('should return false with  unsupported uri',  () => {
       expect(Uri.isGitUri(`http://test.com#master`)).to.be.false
     })
