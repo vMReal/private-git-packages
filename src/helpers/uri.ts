@@ -1,4 +1,3 @@
-import {URL} from 'url';
 import {parse} from "uri-js";
 
 export enum PROTOCOL {
@@ -14,8 +13,12 @@ export class Uri {
     if (!this.isGitUri(uri))
       return  uri;
 
-    const uriProps = new URL(uri);
-    return `${protocol}://${username}:${password}@${uriProps.host}${uriProps.pathname}${uriProps.search}${uriProps.hash}`;
+    const uriProps = parse(uri);
+    const port = (uriProps.port) ? `:${uriProps.port}` : '';
+    const path = (uriProps.path) ? uriProps.path.replace(':', '/') : '';
+    const query = (uriProps.query) ? `?${uriProps.query}` : '';
+    const fragment = (uriProps.fragment) ? `#${uriProps.fragment}` : '';
+    return `${protocol}://${username}:${password}@${uriProps.host}${port}${path}${query}${fragment}`;
   }
 
   public static isGitUri(uri: string): boolean {

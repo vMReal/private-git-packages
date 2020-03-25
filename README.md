@@ -40,7 +40,7 @@ $ npm install -g @mreal/private-git-packages
 $ pgp COMMAND
 running command...
 $ pgp (-v|--version|version)
-@mreal/private-git-packages/0.1.0 linux-x64 node-v8.10.0
+@mreal/private-git-packages/0.2.0 linux-x64 node-v8.10.0
 $ pgp --help [COMMAND]
 USAGE
   $ pgp COMMAND
@@ -72,7 +72,7 @@ OPTIONS
   -u, --username=username  (required) username -> https://[username]:[password]@your-git-host.com/...
 ```
 
-_See code: [src/commands/change.ts](https://github.com/vMReal/private-git-packages/blob/v0.1.0/src/commands/change.ts)_
+_See code: [src/commands/change.ts](https://github.com/vMReal/private-git-packages/blob/v0.2.0/src/commands/change.ts)_
 
 ## `pgp help [COMMAND]`
 
@@ -105,5 +105,5 @@ OPTIONS
   -r, --recursively        Apply to all files (package) at any level of nesting
 ```
 
-_See code: [src/commands/rollback.ts](https://github.com/vMReal/private-git-packages/blob/v0.1.0/src/commands/rollback.ts)_
+_See code: [src/commands/rollback.ts](https://github.com/vMReal/private-git-packages/blob/v0.2.0/src/commands/rollback.ts)_
 <!-- commandsstop -->

@@ -32,6 +32,14 @@ describe('Uri', () => {
     it('should not affect another parts of uri with basic auth and branch', async () => {
       expect(Uri.change('git+ssh://testu:testp@test.com#master', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com#master');
     })
+
+    it('should correctly change git uri full format', () => {
+      expect(Uri.change('git+ssh://git@git.test.com:3535:scope/name?search#test', 'u', 'p', PROTOCOL.HTTPS)).to.be.eq('git+https://u:p@git.test.com:3535/scope/name?search#test')
+    })
+
+    it('should correctly change git uri short format', () => {
+      expect(Uri.change('git+ssh://git@git.test.com', 'u', 'p', PROTOCOL.HTTPS)).to.be.eq('git+https://u:p@git.test.com')
+    })
   })
 
   describe('isGitUri', () => {

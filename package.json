@@ -1,7 +1,7 @@
 {
   "name": "@mreal/private-git-packages",
   "description": "CLI allows dynamically inject secret variables for git dependencies in package.json. It gives protected way use git dependencies in package.json in CI/CD",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "vMReal @vMReal",
   "bin": {
     "pgp": "./bin/run"
