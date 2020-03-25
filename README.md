@@ -21,10 +21,10 @@ pgp rollback
 ```
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/private-git-packages.svg)](https://npmjs.org/package/private-git-packages)
+[![Version](https://img.shields.io/npm/v/@mreal/private-git-packages.svg)](https://npmjs.org/package/@mreal/private-git-packages)
 [![Codecov](https://codecov.io/gh/vMReal/private-git-packages/branch/master/graph/badge.svg)](https://codecov.io/gh/vMReal/private-git-packages)
-[![Downloads/week](https://img.shields.io/npm/dw/private-git-packages.svg)](https://npmjs.org/package/private-git-packages)
-[![License](https://img.shields.io/npm/l/private-git-packages.svg)](https://github.com/vMReal/private-git-packages/blob/master/package.json)
+[![Downloads/week](https://img.shields.io/npm/dw/@mreal/private-git-packages.svg)](https://npmjs.org/package/private-git-packages)
+[![License](https://img.shields.io/npm/l/@mreal/private-git-packages.svg)](https://github.com/vMReal/private-git-packages/blob/master/package.json)
 
 <!-- toc -->
 * [ANY CI](#any-ci)
