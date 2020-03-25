@@ -21,12 +21,14 @@ pgp rollback
 ```
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/private-git-packages.svg)](https://npmjs.org/package/private-git-packages)
+[![Version](https://img.shields.io/npm/v/@mreal/private-git-packages.svg)](https://npmjs.org/package/@mreal/private-git-packages)
 [![Codecov](https://codecov.io/gh/vMReal/private-git-packages/branch/master/graph/badge.svg)](https://codecov.io/gh/vMReal/private-git-packages)
-[![Downloads/week](https://img.shields.io/npm/dw/private-git-packages.svg)](https://npmjs.org/package/private-git-packages)
-[![License](https://img.shields.io/npm/l/private-git-packages.svg)](https://github.com/vMReal/private-git-packages/blob/master/package.json)
+[![Downloads/week](https://img.shields.io/npm/dw/@mreal/private-git-packages.svg)](https://npmjs.org/package/private-git-packages)
+[![License](https://img.shields.io/npm/l/@mreal/private-git-packages.svg)](https://github.com/vMReal/private-git-packages/blob/master/package.json)
 
 <!-- toc -->
+* [ANY CI](#any-ci)
+* [GITLAB CI](#gitlab-ci)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -34,11 +36,11 @@ pgp rollback
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @vmreal/private-git-packages
+$ npm install -g @mreal/private-git-packages
 $ pgp COMMAND
 running command...
 $ pgp (-v|--version|version)
-@vmreal/private-git-packages/0.1.0 linux-x64 node-v8.10.0
+@mreal/private-git-packages/0.1.0 linux-x64 node-v8.10.0
 $ pgp --help [COMMAND]
 USAGE
   $ pgp COMMAND
