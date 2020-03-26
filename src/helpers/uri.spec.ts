@@ -22,15 +22,15 @@ describe('Uri', () => {
     })
 
     it('should not affect another parts of uri without basic auth', async () => {
-      expect(Uri.change('git+ssh://@test.com', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com');
+      expect(Uri.change('git+ssh://@test.com', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com/');
     })
 
     it('should not affect another parts of uri with basic auth', async () => {
-      expect(Uri.change('git+ssh://testu:testp@test.com', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com');
+      expect(Uri.change('git+ssh://testu:testp@test.com', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com/');
     })
 
     it('should not affect another parts of uri with basic auth and branch', async () => {
-      expect(Uri.change('git+ssh://testu:testp@test.com#master', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com#master');
+      expect(Uri.change('git+ssh://testu:testp@test.com#master', 'u', 'p', PROTOCOL.HTTPS)).to.equal('git+https://u:p@test.com/#master');
     })
 
     it('should correctly change git uri full format', () => {
