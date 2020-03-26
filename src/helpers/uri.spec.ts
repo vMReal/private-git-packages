@@ -37,8 +37,8 @@ describe('Uri', () => {
       expect(Uri.change('git+ssh://git@git.test.com:3535:scope/name?search#test', 'u', 'p', PROTOCOL.HTTPS)).to.be.eq('git+https://u:p@git.test.com:3535/scope/name?search#test')
     })
 
-    it('should correctly change git uri short format', () => {
-      expect(Uri.change('git+ssh://git@git.test.com', 'u', 'p', PROTOCOL.HTTPS)).to.be.eq('git+https://u:p@git.test.com')
+    it('should correctly change git uri gitlab format', () => {
+      expect(Uri.change('git+ssh://git@gitlab.test.com:group/project#branch', 'u', 'p', PROTOCOL.HTTPS)).to.be.eq('git+https://u:p@gitlab.test.com/group/project#branch')
     })
   })
 

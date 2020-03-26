@@ -15,10 +15,10 @@ export class Uri {
 
     const uriProps = parse(uri);
     const port = (uriProps.port) ? `:${uriProps.port}` : '';
-    const path = (uriProps.path) ? uriProps.path.replace(':', '/') : '';
+    const path = (uriProps.path) ? uriProps.path.replace(':', '') : '';
     const query = (uriProps.query) ? `?${uriProps.query}` : '';
     const fragment = (uriProps.fragment) ? `#${uriProps.fragment}` : '';
-    return `${protocol}://${username}:${password}@${uriProps.host}${port}${path}${query}${fragment}`;
+    return `${protocol}://${username}:${password}@${uriProps.host}${port}/${path}${query}${fragment}`;
   }
 
   public static isGitUri(uri: string): boolean {
