@@ -83,8 +83,8 @@ describe('GitDependency', () => {
       });
 
       const res = JSON.parse(GitDependency.change(json, ['test2', 'test3'], 'testuser', 'testpassword'));
-      expect(get(res, 'dependencies.test2')).to.equal('git+https://testuser:testpassword@test2.test');
-      expect(get(res, 'dependencies.test3')).to.equal('git+https://testuser:testpassword@test3.test');
+      expect(get(res, 'dependencies.test2')).to.equal('git+https://testuser:testpassword@test2.test/');
+      expect(get(res, 'dependencies.test3')).to.equal('git+https://testuser:testpassword@test3.test/');
       expect(get(res, 'devDependencies.test5')).to.equal('git+file://test3.test');
     })
 
@@ -104,7 +104,7 @@ describe('GitDependency', () => {
 
       const res = JSON.parse(GitDependency.change(json, ['test1', 'test2'], 'testuser', 'testpassword'));
       expect(get(res, 'dependencies.test1')).to.equal('v1.1.1');
-      expect(get(res, 'dependencies.test2')).to.equal('git+https://testuser:testpassword@test2.test');
+      expect(get(res, 'dependencies.test2')).to.equal('git+https://testuser:testpassword@test2.test/');
     })
 
     it('should change correctly package-lock.json structure', async () => {
@@ -119,11 +119,11 @@ describe('GitDependency', () => {
       });
 
       const res = JSON.parse(GitDependency.change(json, ['test2', 'test3'], 'testuser', 'testpassword'));
-      expect(get(res, 'dependencies.test2.version')).to.equal('git+https://testuser:testpassword@test2.test#master');
-      expect(get(res, 'dependencies.test2.from')).to.equal('git+https://testuser:testpassword@test2.test');
+      expect(get(res, 'dependencies.test2.version')).to.equal('git+https://testuser:testpassword@test2.test/#master');
+      expect(get(res, 'dependencies.test2.from')).to.equal('git+https://testuser:testpassword@test2.test/');
 
-      expect(get(res, 'dependencies.test3.version')).to.equal('git+https://testuser:testpassword@test3.test');
-      expect(get(res, 'dependencies.test3.from')).to.equal('git+https://testuser:testpassword@test3.test');
+      expect(get(res, 'dependencies.test3.version')).to.equal('git+https://testuser:testpassword@test3.test/');
+      expect(get(res, 'dependencies.test3.from')).to.equal('git+https://testuser:testpassword@test3.test/');
 
       expect(get(res, 'dependencies.test5.version')).to.equal('git://test5.test#master')
       expect(get(res, 'dependencies.test5.from')).to.equal('git://test5.test');
